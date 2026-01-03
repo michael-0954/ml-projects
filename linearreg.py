@@ -61,8 +61,8 @@ def main():
     #first plot: linear regression 
     ax1.scatter(x_train, y_train, c="red")
     ax1.set_title("Linear Regression ")
-    ax1.set_ylabel('X') 
-    ax1.set_xlabel('Y')
+    ax1.set_ylabel('Y') 
+    ax1.set_xlabel('X')
     x=np.arange(0, x_train[-1]+math.ceil(x_train.mean()))
     y=w_final * x + b_final
     ax1.plot(x, y)
