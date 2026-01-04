@@ -39,6 +39,9 @@ def gradient_descent(x, y, w, b, lr, iters, cost_function, gradient_function):
         param_history.append((w, b))
         if(i%(math.ceil(iters/10))==0):
             print(f"Iteration {i} \n Cost: {cost.round(5)}; Derivatives: dj_dw={grad_w.round(5)}, dj_db={grad_b.round(5)}; Parameters: w={w.round(5)}, b={b.round(5)}\n")
+        if math.fabs(grad_w)<=lr and math.fabs(grad_b)<=lr:
+            print(f"Converged at iteration {i}")
+            break
     return w, b, cost_history, param_history
 
 def main():
@@ -55,7 +58,7 @@ def main():
 
     #run model and print results
     w_final, b_final, cost_hist, param_hist = gradient_descent(x_train, y_train, w_init, b_init, lr, iters, compute_cost, compute_gradient)
-    print(f"Final Parameters (Iteration {iters}): \n w={w_final.round(5)}, b={b_final.round(5)}")
+    print(f"Final Parameters: \n w={w_final.round(5)}, b={b_final.round(5)}")
     
     #4 plots showing linear regression, cost, and parameters 
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, constrained_layout=True, figsize=(12,4))
