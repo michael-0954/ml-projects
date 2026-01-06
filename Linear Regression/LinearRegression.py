@@ -20,25 +20,16 @@ class LinearRegression:
     
     #cost function 
     def compute_cost(self, x, y):
-        m = x.shape[0]
-        cost = 0
-        for i in range(m):
-            f_wbi = np.dot(self.w, x[i]) + self.b
-            cost += (f_wbi-y[i])**2
-        return cost / (2*m)
+        predictions = np.dot(x, self.w) + self.b
+        cost = np.sum((predictions - y)**2) / (2 * x.shape[0])
+        return cost
 
     #computes the gradient for all parameters (partial derivative of cost function)
     def compute_gradient(self, x, y):
-        m, n = x.shape
-        gradient_w = np.zeros(n)
-        gradient_b = 0
-        for i in range(m):
-            err = (np.dot(self.w, x[i]) + self.b) - y[i]
-            for j in range(n):
-                gradient_w[j] += err*x[i][j]
-            gradient_b += err
-        gradient_w = gradient_w / m
-        gradient_b = gradient_b / m
+        predictions = np.dot(x, self.w) + self.b
+        errors = predictions - y
+        gradient_w = np.dot(x.T, errors) / x.shape[0]
+        gradient_b = np.sum(errors) / x.shape[0]
         return gradient_w, gradient_b
     
     #feature scaling (z-score normalization)
